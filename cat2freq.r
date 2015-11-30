@@ -1,27 +1,36 @@
 # data-mining-toolbox
-cat2freq<-function(x)
-{
-return (as.data.frame(table(x)))  
-  
-  
-}
-
-cat2logfreq<-function(x)
+cat2freq<-function(x,key)
 {
 m=as.data.frame(table(x))
-m[,2]=log(m[,2])
-return (m)  
+names(m)[1]=key
+x=merge(m,x,by=key)
+x[,key]=NULL
+return (x)  
   
   
 }
 
-cat2freqrank<-function(x)
+cat2logfreq<-function(x,key)
 {
-  m=as.data.frame(sort(table(x)))
+m=as.data.frame(table(x[,key]))
+m[,2]=log(m[,2])
+names(m)[1]=key
+x=merge(m,x,by=key)
+x[,key]=NULL
+return (x)  
+  
+  
+}
+
+cat2freqrank<-function(x,key)
+{
+  m=as.data.frame(sort(table(x[,key])))
   
   m[,1]=rev(c(1:length(m[,1])))
   m$key=row.names(m)
-  return (m)  
+  x=merge(m,x,by=key)
+x[,key]=NULL
+  return (x)  
   
   
 }
