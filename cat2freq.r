@@ -17,9 +17,11 @@ return (m)
 
 cat2freqrank<-function(x)
 {
-m=as.data.frame(sort(table(x)))
-m[,2]=c(1:length(m[,2]))
-return (m)  
+  m=as.data.frame(sort(table(x)))
+  
+  m[,1]=rev(c(1:length(m[,1])))
+  m$key=row.names(m)
+  return (m)  
   
   
 }
