@@ -27,6 +27,7 @@ cat2freqrank<-function(x,key)
   m=as.data.frame(sort(table(x[,key])))
   
   m[,1]=rev(c(1:length(m[,1])))
+   names(m)[1]=paste0('rank',key)
   m[,key]=row.names(m)
   x=merge(m,x,by=key)
 x[,key]=NULL
