@@ -1,4 +1,4 @@
-long2wide<-function(x,id)
+long2wide<-function(x)
 {
 library(plyr)
 library(reshape2)
