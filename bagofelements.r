@@ -7,7 +7,7 @@ return(paste(x[,key][1:length(x)],collapse=" "))
   
   }
 trial=train[,c(2,5)] #some data with id and target variable to create bag of elements 
-trial[,2]=gsub(' ','',trial[,2],)
+trial$key=gsub(' ','',trial$key)
 vec <- ddply(trial, .(VisitNumber), unit2, key)  
 trial3<-reshape(trial2,idvar="VisitNumber",timevar="index",direction="wide")
 corpus <- Corpus(VectorSource(vec))
