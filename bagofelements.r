@@ -1,14 +1,15 @@
 library(plyr)
 library(reshape)
-library(dplyr)
-library(tidyr)
 library(tm)
+unit2<-function(x,key)
+{
+return(paste(x[,key][1:length(x)],collapse=" "))  
+  
+  }
 trial=train[,c(2,5)] #some data with id and target variable to create bag of elements 
 trial[,2]=gsub(' ','',trial[,2],)
-trial2 <- ddply(trial, .(VisitNumber), mutate, 
-               index = paste0('d', 1:length(VisitNumber)))  
+vec <- ddply(trial, .(VisitNumber), unit2, key)  
 trial3<-reshape(trial2,idvar="VisitNumber",timevar="index",direction="wide")
-trial4=unite_(trial3, col='dep',names(trial3)[2:210], sep=' ')
-corpus <- Corpus(VectorSource(trial4[,2]))
+corpus <- Corpus(VectorSource(vec))
 dtm <- DocumentTermMatrix(corpus)
 dtmsparse <- as.data.frame(as.matrix(dtm))
